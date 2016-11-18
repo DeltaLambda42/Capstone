@@ -33,6 +33,14 @@ public class Player extends Character {
         return (int) score;
     }
 
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
     public void addLife(){
         if(lives < 4) lives++;
         else score += 10;
@@ -45,6 +53,10 @@ public class Player extends Character {
 
     public int getLives(){
         return lives;
+    }
+
+    public void setLives(int lives){
+        this.lives = lives;
     }
 
     public boolean isAlive() {

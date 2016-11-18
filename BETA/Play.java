@@ -25,6 +25,7 @@ public class Play extends BasicGameState {
     private int tempX;
     private Image bg;
     private int level, height, width;
+    private boolean PLAY, PAUSE, OPTIONS, QUIT, changeSpeed;
 
     private int[] duration = {100, 100, 100, 100, 100, 100, 100};
     private int[] duration2 = {100, 100};
@@ -32,32 +33,27 @@ public class Play extends BasicGameState {
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         level = 0;
+        PLAY = true;
+        PAUSE = false;
+        OPTIONS = false;
+        QUIT = false;
         height = gameContainer.getHeight();
         width = gameContainer.getWidth();
-        Image[] runLeft = new Image[7];
-        runLeft[0] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_00 left.png");
-        runLeft[1] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_01 left.png");
-        runLeft[2] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_02 left.png");
-        runLeft[3] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_03 left.png");
-        runLeft[4] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_04 left.png");
-        runLeft[5] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_05 left.png");
-        runLeft[6] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_06 left.png");
-        Image[] runRight = new Image[7];
-        runRight[0] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_00 right.png");
-        runRight[1] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_01 right.png");
-        runRight[2] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_02 right.png");
-        runRight[3] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_03 right.png");
-        runRight[4] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_04 right.png");
-        runRight[5] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_05 right.png");
-        runRight[6] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_06 right.png");
-        Image[] Idle = new Image[2];
-        Idle[0] = new Image("CAPSTONE/BETA/res/Animation/idle_RIGHT/idle_closeEyes_right.png");
-        Idle[1] = new Image("CAPSTONE/BETA/res/Animation/idle_RIGHT/idle_openEyes_right.png");
-        Image[] Idle2 = new Image[2];
-        Idle2[0] = new Image("CAPSTONE/BETA/res/Animation/idle_LEFT/idle_closeEyes_left.png");
-        Idle2[1] = new Image("CAPSTONE/BETA/res/Animation/idle_LEFT/idle_openEyes_left.png");
-        //Image[] walkLeft = {left, left};
-        //Image[] walkRight = {right, right};
+
+        Image[] runLeft = new Image[7];                                                             Image[] runRight = new Image[7];
+        runLeft[0] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_00 left.png");             runRight[0] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_00 right.png");
+        runLeft[1] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_01 left.png");             runRight[1] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_01 right.png");
+        runLeft[2] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_02 left.png");             runRight[2] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_02 right.png");
+        runLeft[3] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_03 left.png");             runRight[3] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_03 right.png");
+        runLeft[4] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_04 left.png");             runRight[4] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_04 right.png");
+        runLeft[5] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_05 left.png");             runRight[5] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_05 right.png");
+        runLeft[6] = new Image("CAPSTONE/BETA/res/Animation/run_LEFT/run_06 left.png");             runRight[6] = new Image("CAPSTONE/BETA/res/Animation/run_RIGHT/run_06 right.png");
+
+        Image[] Idle = new Image[2];                                                                Image[] Idle2 = new Image[2];
+        Idle[0] = new Image("CAPSTONE/BETA/res/Animation/idle_RIGHT/idle_closeEyes_right.png");     Idle2[0] = new Image("CAPSTONE/BETA/res/Animation/idle_LEFT/idle_closeEyes_left.png");
+        Idle[1] = new Image("CAPSTONE/BETA/res/Animation/idle_RIGHT/idle_openEyes_right.png");      Idle2[1] = new Image("CAPSTONE/BETA/res/Animation/idle_LEFT/idle_openEyes_left.png");
+
+        changeSpeed = false;
         addPUP = false;
         hitPUP = false;
         hitSpike = false;
@@ -78,13 +74,14 @@ public class Play extends BasicGameState {
         platform[0] = new Image("CAPSTONE/BETA/res/base.png");
         platform[1] = new Image("CAPSTONE/BETA/res/spikes.png");
         p = new Powerup(powerUp);
-        int x = randInt(0, gameContainer.getWidth() - platform[0].getWidth());
+        /*int x = randInt(0, gameContainer.getWidth() - platform[0].getWidth());
         block[0] = new Block(p, platform[0], x, 100);
         temp = block[0];
         mplayer = new Player(player, x + platform[0].getWidth()/2, 100 - player.getHeight());
         for(int i = 1, j = 200; i < block.length; i++, j+=100){
             block[i] = new Block(p, platform[0], randInt(0, gameContainer.getWidth() - platform[0].getWidth()), j);
-        }
+        }*/
+        instantiate();
 
         steadyRight = new Animation(Idle, duration2, true);
         steadyLeft = new Animation(Idle2, duration2, true);
@@ -95,21 +92,26 @@ public class Play extends BasicGameState {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        graphics.drawImage(bg, 0, 0);
-        //mplayer.getImage().draw(mplayer.getX(), mplayer.getY());
-        idle.draw(mplayer.getX(), mplayer.getY());
-        graphics.drawString("Lives : " + mplayer.getLives(), 50, 50);
-        graphics.drawString("SCORE: " + mplayer.getScore(), 300, 50);
 
-        for(Block b : block){
-            if(b.isHavePowerUp() && !mplayer.isHitPUP()){
-                if(b.isSpawnLife()){
-                    b.getP().getPowerUP()[0].draw(b.getP().getX(), b.getP().getY());
+        if(mplayer.isAlive()){
+            graphics.drawImage(bg, 0, 0);
+            idle.draw(mplayer.getX(), mplayer.getY());
+            graphics.drawString("Lives : " + mplayer.getLives(), 20, 50);
+            graphics.drawString("SCORE: " + mplayer.getScore(), 300, 50);
+
+            for(Block b : block){
+                if(b.isHavePowerUp() && !mplayer.isHitPUP()){
+                    if(b.isSpawnLife()){
+                        b.getP().getPowerUP()[0].draw(b.getP().getX(), b.getP().getY());
+                    }
                 }
+                if(mplayer.isHitPUP()) mplayer.setHitPUP(false);
+                b.getImage().draw(b.getX(), b.getY());
             }
-            if(mplayer.isHitPUP()) mplayer.setHitPUP(false);
-            b.getImage().draw(b.getX(), b.getY());
+        }else{
+            stateBasedGame.enterState(5);
         }
+
     }
 
     @Override
@@ -118,208 +120,77 @@ public class Play extends BasicGameState {
 
         time += elapsedTime;
         //mplayer.setHitPUP(false);
-
-        if (in.isKeyDown(Input.KEY_LEFT)) {
-            idle = runningLeft;
-            mplayer.setXspeed(-0.15f);
-            mplayer.move();
-        } else if (in.isKeyDown(Input.KEY_RIGHT)) {
-            idle = runningRight;
-            mplayer.setXspeed(0.15f);
-            mplayer.move();
-        }else{
-            if(idle == runningLeft) idle = steadyLeft;
-            if(idle == runningRight) idle = steadyRight;
+        if (in.isKeyDown(Input.KEY_ESCAPE)){
+            stateBasedGame.enterState(3);
         }
-
-        clearUps();
-
-        if(mplayer.getScore() >= 500 && mplayer.getScore() <= 1500){
-            level = 1;
-            setAllyspeed(0.1f);
-        }
-
-        if(mplayer.getScore() > 1500 && mplayer.getScore() <= 2500){
-            level = 2;
-            setAllyspeed(0.15f);
-        }
-
-        if(mplayer.getScore() > 2500){
-            level = 3;
-            setAllyspeed(0.2f);
-        }
-
-        addPowerups();
-        moveBlocks();
-
-        /*for(Block b : block){//for the love of tae
-            if(mplayer.getRect().intersects(b.getRect())){
-                check(b);
+      //  if(PLAY){
+        if(mplayer.isAlive()){
+            if (in.isKeyDown(Input.KEY_LEFT)) {
+                idle = runningLeft;
+                mplayer.setXspeed(-0.15f);
+                mplayer.move();
+            } else if (in.isKeyDown(Input.KEY_RIGHT)) {
+                idle = runningRight;
+                mplayer.setXspeed(0.15f);
+                mplayer.move();
+            } else{
+                if(idle == runningLeft) idle = steadyLeft;
+                if(idle == runningRight) idle = steadyRight;
             }
-
-            if(b.isHavePowerUp()){
-                b.placeTop();
-                System.out.println("bruh");
-                if(mplayer.getRect().intersects(b.getP().getRect())){
-                    b.getP().setX(0);
-                    b.getP().setY(0);
-                    b.getP().updateRect();
-                    mplayer.setHitPUP(true);
-                    b.setSpawnLife(false);
-                    pupSpawned = false;
-                }
+            clearUps();
+            if(mplayer.getScore() >= 500 && mplayer.getScore() <= 1500 && !changeSpeed){
+                level = 1;
+                setAllyspeed(0.1f);
+                changeSpeed = true;
             }
-
-            if(mplayer.getY() <= 5){
-                hitSpike = true;
+            if(mplayer.getScore() > 1500 && mplayer.getScore() <= 2500 && changeSpeed){
+                level = 2;
+                setAllyspeed(0.15f);
+                changeSpeed = false;
             }
-            if(b.getY() <= 0){
-                if(b.isHavePowerUp()){
-                    pupSpawned = false;
-                    b.setSpawnLife(false);
-                }
-                if(level == 1){
-                    int x = randInt(1, 10);
-                    if(x == 2 || x == 7){
-                        b.setType(1);
-                        b.setImage(new Image("CAPSTONE/BETA/res/spikes.png"));
-                    }else {
-                        b.setType(0);
-                        if(!pupSpawned && x == 1 ){
-                            b.setSpawnLife(true);
-                            pupSpawned = true;
-                            //tempSpawn = b;
-                        }
-                        b.setImage(new Image("CAPSTONE/BETA/res/base.png"));
-                    }
-                }
-
-                b.setY(gameContainer.getHeight());
-                b.setX(randInt(0, gameContainer.getWidth() - b.getWidth()));
-
-                if(hitSpike && b.getType() != 1){
-                    mplayer.setY(b.getY() - mplayer.getHeight());
-                    mplayer.setX(b.getX() + b.getWidth()/2);
-                    hitTop = true;
-                    hitSpike = false;
-                }
+            if(mplayer.getScore() > 2500 && mplayer.getScore() <= 4000 && !changeSpeed){
+                level = 3;
+                setAllyspeed(0.2f);
+                changeSpeed = true;
             }
-
-            b.setY(b.getY() - b.getYspeed());
-            b.updateRect();
-        }
-
-       // int ctr = 0;
-
-        /*for(Block b : block){
-            if(mplayer.getRect().intersects(b.getRect())){
-                check(b);
+            if(mplayer.getScore() > 4000 && changeSpeed){
+                level = 4;
+                setAllyspeed(0.25f);
+                changeSpeed = false;
             }
-
-            if(b.isHavePowerUp() && pupSpawned){
-                b.placeTop((int)b.getX() + b.getWidth()/2);
-                if(mplayer.getRect().intersects(b.getP().getRect())){
-                    mplayer.setHitPUP(true);
-                    pupSpawned = false;
-                    b.setSpawnLife(false);
-                    mplayer.addLife();
-                }
+            addPowerups();
+            moveBlocks();
+            if(hitPUP){
+                mplayer.addLife();
+                hitPUP = false;
             }
-
-            if(b.getY() > 0 && updateSpawn) {
-                tempSpawn.placeTop((int) tempSpawn.getX() + tempSpawn.getWidth() / 2);
+            if(addPUP){
+                addPUP = false;
+                tempSpawn.setSpawnLife(true);
+                tempSpawn.placeTop((int)tempSpawn.getX() + tempSpawn.getWidth()/2);
+                updateSpawn = true;
             }
-
-            if(b.getY() <= 0){
-                b.setY(gameContainer.getHeight());
-                b.setX(randInt(0, gameContainer.getWidth() - b.getWidth()));
-                if(mplayer.getY() <= 0 || hitSpike){
-                    mplayer.setY(b.getY() - mplayer.getHeight());
-                    mplayer.setX(b.getX() + b.getWidth()/2);
-                    hitTop = true;
-                    hitSpike = false;
-                }
-
-                if(b.isHavePowerUp()){
-                    pupSpawned = false;
-                    mplayer.setHitPUP(false);
-                    b.setSpawnLife(false);
-                    updateSpawn = false;
-                }
-
-                if(level == 1){
-                    int x = randInt(1, 10);
-                    if(x == 2 || x == 7){
-                        b.setType(1);
-                        b.setImage(new Image("CAPSTONE/BETA/res/spikes.png"));
-                    }else {
-                        b.setType(0);
-                        if(x == 1 || x == 3 || x == 5 || x == 9){
-                            pupSpawned = true;
-                            tempSpawn = b;
-                            addPUP = true;
-                            //b.setSpawnLife(true);;
-                            //b.placeTop((int)b.getX() + b.getWidth()/2);
-                            b.setImage(new Image("CAPSTONE/BETA/res/base.png"));
-                        }
-                    }
-
-                }
-
-                else if(level == 2){
-                    int x = randInt(1, 10);
-                    if(x == 2 || x == 7 || x == 9){
-                        b.setType(1);
-                        b.setImage(new Image("CAPSTONE/BETA/res/spikes.png"));
-                    }else{
-                        b.setType(0);
-                        if(!pupSpawned && x == 1 || x == 3){
-                            pupSpawned = true;
-                            tempSpawn = b;
-                            b.setSpawnLife(true);;
-                            b.placeTop((int)b.getX() + b.getWidth()/2);
-                            b.setImage(new Image("CAPSTONE/BETA/res/base.png"));
-                        }
-                    }
-                }
+            if(hitTop){
+                mplayer.minusLife();
+                hitTop = false;
             }
-            b.setY(b.getY() - b.getYspeed());
-            b.updateRect();
-        }*/
-        /*if(pupSpawned){
-            tempSpawn.placeTop();
-        }*/
-
-        if(hitPUP){
-            mplayer.addLife();
-            hitPUP = false;
+            if(pupHit){
+                pupSpawned = false;
+                tempPUP.setSpawnLife(false);
+                pupHit = false;
+            }
+            if(onTop) {
+                mplayer.setY(temp.getY() - mplayer.getHeight());
+                time = 0;
+            }
+            else {
+                mplayer.setY(mplayer.getY() + mplayer.getYspeed());
+                if(mplayer.getY() >= 800) mplayer.minusLife();
+                mplayer.addScore(time/10000);
+            }
+            mplayer.updateRect();
         }
-        if(addPUP){
-            addPUP = false;
-            tempSpawn.setSpawnLife(true);
-            tempSpawn.placeTop((int)tempSpawn.getX() + tempSpawn.getWidth()/2);
-            updateSpawn = true;
-        }
-        if(hitTop){
-            mplayer.minusLife();
-            hitTop = false;
-        }
-        if(pupHit){
-            pupSpawned = false;
-            tempPUP.setSpawnLife(false);
-            pupHit = false;
-        }
-        if(onTop) {
-            mplayer.setY(temp.getY() - mplayer.getHeight());
-            time = 0;
-        }
-        else {
-            mplayer.setY(mplayer.getY() + mplayer.getYspeed());
-            if(mplayer.getY() >= 800) mplayer.minusLife();
-            mplayer.addScore(time/10000);
-        }
-        mplayer.updateRect();
-
+      //  }
 
     }
 
@@ -329,7 +200,7 @@ public class Play extends BasicGameState {
                 check(b);
             }
 
-            if(mplayer.getY() <= 5){
+            if(mplayer.getY() <= 5 || mplayer.getY() >= height){
                 hitSpike = true;
             }
             if(b.getY() <= 0) {
@@ -391,8 +262,6 @@ public class Play extends BasicGameState {
         }
     }
 
-
-
     private void addPowerups(){
         for(Block b : block){
             if(b.getY() <= 0 && !pupSpawned) {
@@ -419,13 +288,13 @@ public class Play extends BasicGameState {
                         }
                     }
                 }
-                if(level == 3){
+                if(level == 3 || level == 4){
                     int x = randInt(1, 10);
                     if(x == 2 || x == 7 || x == 9){
                         b.setType(1);
                     }else{
                         b.setType(0);
-                        if(!pupSpawned && x == 1){
+                        if(!pupSpawned && x == 3 || x == 6){
                             pupSpawned = true;
                         }
                     }
@@ -433,6 +302,25 @@ public class Play extends BasicGameState {
                 b.setImage(platform[b.getType()]);
                 break;
             }
+        }
+    }
+
+    public void reset(){
+        mplayer.setLives(3);
+        mplayer.setScore(0);
+        mplayer.setAlive(true);
+        instantiate();
+        clearUps();
+        setAllyspeed(0.05f);
+    }
+
+    public void instantiate(){
+        int x = randInt(0, width - platform[0].getWidth());
+        block[0] = new Block(p, platform[0], x, 100);
+        temp = block[0];
+        mplayer = new Player(player, x + platform[0].getWidth()/2, 100 - player.getHeight());
+        for(int i = 1, j = 200; i < block.length; i++, j+=100){
+            block[i] = new Block(p, platform[0], randInt(0, width - platform[0].getWidth()), j);
         }
     }
 
