@@ -3,9 +3,11 @@
 ---
 ## Proper **readme** to be done
 ---
+
 ### Controls
 - **LEFT BUTTON** to move left
 - **RIGHT BUTTON** to move right
+
 ---
 ### Powerups
 ```
