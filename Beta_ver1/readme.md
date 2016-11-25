@@ -4,16 +4,8 @@
 ## Proper **readme** to be done
 ---
 ### Controls
-```
 - **LEFT BUTTON** to move left
 - **RIGHT BUTTON** to move right
-- **OS X** Yosemite (MacBook, Retina 12-inch, Early 2015)
-- **Terminal.app** (Full-screen)
-- **Solarized** ([base 16](https://github.com/chriskempson/base16))
-- **Tmux** 1.9a
-- **Zsh** 5.0.5
-- **Vim**
-```
 ---
 ### Powerups
 ```
