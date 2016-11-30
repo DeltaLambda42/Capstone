@@ -13,3 +13,16 @@
                              ██████╔╝███████╗███████║╚██████╗███████╗██║ ╚████║   ██║   
                              ╚═════╝ ╚══════╝╚══════╝ ╚═════╝╚══════╝╚═╝  ╚═══╝   ╚═╝  
 
+
+
+***
+# Introduction
+>
+
+***
+# Game Mechanics
+| Key | Use |
+| --- | --- |
+| ![Left Button Key](https://www.iconexperience.com/_img/m_collection_png/128x128/plain/keyboard_key_left.png) | Moves the player left |
+| ![Right Button Key](https://www.iconexperience.com/_img/m_collection_png/128x128/plain/keyboard_key_right.png) | Moves the player right |
+
