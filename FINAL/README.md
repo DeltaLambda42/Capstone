@@ -28,6 +28,7 @@
 
 ### COLLECT
 | Powerups | Effect |
+|--- | --- |
 | ![Heart](https://drive.google.com/open?id=0B7H2YQn7zqTBNTJmek5INS1ELUk) | Adds 1 HP or 500 points if you already have 5 HP |
 | ![Clock](https://drive.google.com/open?id=0B6De2hCgsbo3dEpVcWE1bVljOUk) | Slows gamespeed for 10 seconds |
 | ![Star](https://drive.google.com/open?id=0B6De2hCgsbo3WVBwSzJSZ2drY0U) | Doubles points gained for 15 seconds |
