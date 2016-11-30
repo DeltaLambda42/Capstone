@@ -35,6 +35,7 @@
 
 ### AVOID
 | Spikes | Effect |
+| --- | --- |
 | ![Platform](https://drive.google.com/open?id=0B7H2YQn7zqTBaE52SkpibTdKdGc) | Minus 1 HP (Spikes at the uppermost part and spikes at platforms) |
 
 
