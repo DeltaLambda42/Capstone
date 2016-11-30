@@ -43,7 +43,7 @@
 + **Adobe** Photoshop CC 2015
 + **Adobe** Audition CC 2015
 + **Adobe** Premier Pro CC 2015
-+ **Nvidia** GeForce Shadowplay (Because why not?)
++ **Nvidia** GeForce Shadowplay (*Because why not?*)
 + **Intellij** Idea 2016.2.3
 + **Slieck2D**
 + **LWGL** (Lightweight Java Game Library)
