@@ -41,6 +41,7 @@
 ***
 # Credits
 + **Adobe** Photoshop CC 2015
++ **Adobe** Photoshop CS6 2015
 + **Adobe** Audition CC 2015
 + **Adobe** Premier Pro CC 2015
 + **Nvidia** GeForce Shadowplay (*Because why not?*)
@@ -54,7 +55,7 @@
 + **Stack Overflow**
 + **Google**
 + **Bryle** James Flores (for the vid)
-
++ **Micah Young** Lost Moon
 ***
 #### Members:
 + Brandon Jay **Flores**
