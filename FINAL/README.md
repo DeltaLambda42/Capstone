@@ -39,11 +39,27 @@
 | ![Platform](https://i.imgur.com/eCypZCt.png) | Minus 1 HP (Spikes at the uppermost part and spikes at platforms) |
 
 ***
+# Credits
++ *Adobe* Photoshop CC 2015
++ *Adobe* Audition CC 2015
++ *Adobe* Premier Pro CC 2015
++ *Nvidia* GeForce Shadowplay (Because why not?)
++ *Intellij* Idea 2016.2.3
++ *Slieck2D*
++ *LWGL* (Lightweight Java Game Library)
++ *Notepad++*
++ *Java*
++ *GitHub*
++ *Facebook*
++ *Stack Overflow*
++ *Google*
++ *Bryle* James Flores (for the vid)
 
+***
 #### Members:
-+ Brandon Jay Flores
-+ Max Dylan Limpag
-+ Cristina Dayuday
++ Brandon Jay *Flores*
++ Max Dylan *Limpag*
++ Cristina *Dayuday*
 
 ##### © Space Monkey Mafias
 
