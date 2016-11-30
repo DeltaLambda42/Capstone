@@ -16,7 +16,7 @@
 
 
 ***
-# Introduction
+# The Game
 >
 
 ***
@@ -37,5 +37,14 @@
 | Spikes | Effect |
 | --- | --- |
 | ![Platform](https://i.imgur.com/eCypZCt.png) | Minus 1 HP (Spikes at the uppermost part and spikes at platforms) |
+
+***
+
+#### Members:
++ Brandon Jay Flores
++ Max Dylan Limpag
++ Cristina Dayuday
+
+##### © Space Monkey Mafias
 
 
